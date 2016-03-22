@@ -4,6 +4,7 @@ require 'sinatra/base'
 require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
+
   get '/' do
     'Hello BookmarkManager!'
   end
@@ -23,9 +24,12 @@ class BookmarkManager < Sinatra::Base
     tag = Tag.create(name: params[:tags])
     link.tags << tag
     link.save
-    p link.tags.name
-    p tag.name
     redirect '/links'
+  end
+
+  get '/tags/news' do
+    p @links_news = Link.all.select { |link| link.tags.first.name == 'news' }
+    erb(:tags_news)
   end
 
   # start the server if ruby file executed directly

@@ -1,14 +1,8 @@
 feature 'Creating links' do
 
   scenario 'I can create a new link' do
-    visit '/links/new'
     count = Link.all.count
-
-    fill_in('url', with: 'http://ruby-doc.org/core-2.3.0/')
-    fill_in('title', with: 'Ruby-doc')
-    fill_in('tags', with: 'ruby')
-    click_button('Submit')
-
+    add_ruby_doc
     within 'ul#links' do
       expect(page).to have_content('Ruby-doc')
     end

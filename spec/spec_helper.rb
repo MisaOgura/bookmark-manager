@@ -4,6 +4,7 @@ require './app/models/link'
 require 'capybara'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'features/web_helpers'
 
 require File.join(File.dirname(__FILE__), '..', 'app/bookmark_manager.rb')
 
