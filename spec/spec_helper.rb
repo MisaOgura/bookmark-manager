@@ -1,8 +1,10 @@
+ENV['RACK_ENV'] = 'test'
+
 require './app/models/link'
 require 'capybara'
 require 'capybara/rspec'
+require 'database_cleaner'
 
-ENV['RACK_ENV'] = 'test'
 require File.join(File.dirname(__FILE__), '..', 'app/bookmark_manager.rb')
 
 Capybara.app = BookmarkManager
@@ -47,6 +49,17 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
 # The settings below are suggested to provide a good initial experience
