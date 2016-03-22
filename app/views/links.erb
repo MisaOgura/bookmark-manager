@@ -1,12 +1,13 @@
 <h2> Links </h2>
 
-<div id='count'><%= @links.count %></div>
+<div id='count'><%= @count %></div>
 
 <ul id='links' >
   <% @links.each do |link| %>
     <li>
       Title: <%= link.title %>
       URL: <a href ="<%= link.url %>"><%= link.url %></a>
+      <!-- Tags: <%= link.tags.name %> -->
     </li>
   <% end %>
 </ul>
