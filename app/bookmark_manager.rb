@@ -28,7 +28,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/tags/news' do
-    p @links_news = Link.all.select { |link| link.tags.first.name == 'news' }
+    @links_news = Link.all.select { |link| link.tags.first.name == 'news' }
     erb(:tags_news)
   end
 
