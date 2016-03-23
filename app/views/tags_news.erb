@@ -1,10 +1,12 @@
 <font face="Futura">
   <h3>Links tagged as 'news'</h3>
 
-  <% @links_news.each do |link| %>
-    <li>
-      Title: <%= link.title %>
-      URL: <a href ="<%= link.url %>"><%= link.url %></a>
-    </li>
-  <% end %>
+  <ul id='links' >
+    <% @links_news.each do |link| %>
+      <li>
+        Title: <%= link.title %>
+        URL: <a href ="<%= link.url %>"><%= link.url %></a>
+      </li>
+    <% end %>
+  </ul>
 </font>

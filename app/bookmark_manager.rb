@@ -27,9 +27,16 @@ class BookmarkManager < Sinatra::Base
     redirect '/links'
   end
 
-  get '/tags/news' do
-    @links_news = Link.all.select { |link| link.tags.first.name == 'news' }
-    erb(:tags_news)
+  # get '/tags/:name' do
+  #   tag = Tag.first(name: params[:name])
+  #   @links = tag ? tag.links : []
+  #   erb :'links'
+  # end
+
+  get '/tags/:name' do
+    @links = Link.all.select { |link| link.tags.first.name == 'news' }
+    @count = @links.count
+    erb(:links)
   end
 
   # start the server if ruby file executed directly

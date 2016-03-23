@@ -5,6 +5,7 @@ feature 'Filtering by tags' do
     add_bbc
     add_daily_mail
     visit '/tags/news'
+    expect(page).not_to have_content('Ruby-doc')
     expect(page).to have_content('BBC' && 'Daily Mail')
   end
 end
