@@ -5,7 +5,6 @@ class User
   include DataMapper::Resource
 
   property :id, Serial
-  property :count, Serial
   property :address, String
   property :password, String
 
