@@ -3,19 +3,23 @@ ENV["RACK_ENV"] ||= "development"
 require_relative './models/link.rb'
 require 'sinatra/base'
 require_relative 'data_mapper_setup'
+require 'bcrypt'
 
 class Bookmark < Sinatra::Base
+  set :sessions, true
+  
   get '/' do
     erb(:home)
   end
 
   post '/' do
-    @user = User.create(address: params[:email], password: params[:pw])
-    p @user
+    user_password = BCrypt::Password.create(params[:pw])
+    User.create(address: params[:email], password: "my password")
     redirect '/links'
   end
 
   get '/links' do
+    @user_address = !!User.first ? User.first.address : ''
     @links = Link.all
     erb(:'/links/index')
   end
