@@ -6,13 +6,14 @@ class User
 attr_reader :password
 attr_accessor :password_confirmation
 
-validates_confirmation_of :password
-validates_presence_of :email
 
   property :id, Serial
   property :name, String
-  property :email, String
+  property :email, String, required: true
   property :password_digest, Text
+
+  validates_confirmation_of :password
+  validates_format_of :email, :as => :email_address
 
   def password=(password)
     @password = password

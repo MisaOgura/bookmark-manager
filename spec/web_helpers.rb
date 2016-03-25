@@ -22,3 +22,15 @@ def sign_up_tom
   fill_in :password, with: 'password2'
   fill_in :confirm_password, with: 'password2'
 end
+
+def sign_up(name: 'alice',
+            email: 'alice@gmail.com',
+            password: '123456',
+            confirm_password: '123456')
+  visit('/')
+  fill_in('name', with: name)
+  fill_in('email', with: email)
+  fill_in('password', with: password)
+  fill_in('confirm_password', with: confirm_password)
+  click_button('New User')
+end

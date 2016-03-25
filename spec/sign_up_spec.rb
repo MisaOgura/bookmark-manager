@@ -38,4 +38,12 @@ feature 'after signing up' do
     click_button('New User')
     page.has_xpath?('/')
   end
+
+  scenario 'user can\'t sign up without email' do
+    expect{ sign_up(email: nil) }.not_to change(User, :count)
+  end
+
+  scenario 'user can\'t sign up with invalid email' do
+    expect{ sign_up(email: 'invalidemail') }.not_to change(User, :count)
+  end
 end
