@@ -46,4 +46,15 @@ feature 'after signing up' do
   scenario 'user can\'t sign up with invalid email' do
     expect{ sign_up(email: 'invalidemail') }.not_to change(User, :count)
   end
+
+  scenario 'user can\'t sign up with an already existing email' do
+    sign_up
+    expect{ sign_up }.not_to change(User, :count)
+  end
+
+  scenario 'user can\'t sign up with an already existing email' do
+    sign_up
+    sign_up
+    expect(page).to have_content('This email address has already been used')
+  end
 end

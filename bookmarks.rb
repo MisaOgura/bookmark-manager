@@ -7,8 +7,8 @@ require 'sinatra/flash'
 
 class Bookmarks < Sinatra::Base
 
-use Rack::Session::Pool, :expire_after => 2592000
-register Sinatra::Flash
+  use Rack::Session::Pool, :expire_after => 2592000
+  register Sinatra::Flash
 
   helpers do
     def encrypt(password)
@@ -23,17 +23,22 @@ register Sinatra::Flash
   post '/' do
     session[:name] = params[:name]
     session[:email] = params[:email]
-    user = User.create(
-      :name => session[:name],
-      :email => session[:email],
-      :password => params[:password],
-      :password_confirmation => params[:confirm_password]
-    )
-    if user.save
-      redirect('/links')
-    else
-      flash[:message] = 'Password and confirmation password do not match'
+    if User.first(session[:email])
+      flash[:message] = 'This email address has already been used'
       redirect('/')
+    else
+      user = User.create(
+        :name => session[:name],
+        :email => session[:email],
+        :password => params[:password],
+        :password_confirmation => params[:confirm_password]
+      )
+      if user.save
+        redirect('/links')
+      else
+        flash[:message] = 'Password and confirmation password do not match'
+        redirect('/')
+      end
     end
   end
 
